@@ -11,7 +11,7 @@ const fetchProfileData = () => {
         email: '******@gmail.com',
         pan: '*324E',
         phone: '*004',
-        demat: '120816686398'
+        demat: '120816686398',
         segments: 'BSE, NSE, MF',
         bank: '*500S HDFC BANK LTD',
       });
