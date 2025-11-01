@@ -21,6 +21,7 @@ const fetchDashboardData = () => {
 };
 
 const Dashboard = () => {
+  const { openOrderPanel } = useOrderPanel();
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -152,7 +153,7 @@ const Dashboard = () => {
           </div>
 
           <div className="mt-4">
-            <MarketChart apiUrl="http://localhost:5000/api/market-data" />
+            <MarketChart apiUrl="https://pseudo-servoce.onrender.com/api/market-data" />
           </div>
 
           {/* Demo Buttons */}

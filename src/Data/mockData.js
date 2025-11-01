@@ -12,7 +12,7 @@ export const watchlistData = [
 ];
 
 export const holdingsData = [
-  { name: 'PNB', qty: 34, avg: 95.33, ltp: 120.20, curVal: '4,086.80', pnl: '845.50', pnlPerc: '+26.04%', dayChg: '+0.53%' },
+  { name: 'PNB', qty: 35, avg: 95.33, ltp: 120.20, curVal: '4,086.80', pnl: '845.50', pnlPerc: '+26.04%', dayChg: '+0.53%' },
   { name: 'TEGA', qty: 6, avg: 1192.25, ltp: 1908.10, curVal: '11,448.60', pnl: '4,295.10', pnlPerc: '+60.04%', dayChg: '+0.58%' },
 ];
 
@@ -23,5 +23,19 @@ export const ipoData = [
   { name: 'SAFECURE', desc: 'Safecure Services', date: '29th — 31st Oct', price: '102', min: '244800', status: 'Upcoming' },
   { name: 'RUBICON', desc: 'Rubicon Research', date: '9th — 13th Oct', price: '461 - 485', min: '14550', status: 'Closed' },
   { name: 'CRAMC', desc: 'Canara Robeco Asset Management', date: '9th — 13th Oct', price: '253 - 266', min: '14896', status: 'Closed' },
+];
+
+export const sampleData = [
+  { time: '2025-10-01', open: 180.34, high: 181.55, low: 179.94, close: 181.12 },
+  { time: '2025-10-02', open: 181.42, high: 182.22, low: 180.01, close: 180.45 },
+  { time: '2025-10-03', open: 180.66, high: 181.11, low: 178.60, close: 179.33 },
+  { time: '2025-10-04', open: 179.80, high: 180.99, low: 179.50, close: 180.82 },
+  { time: '2025-10-05', open: 180.82, high: 182.30, low: 180.55, close: 181.99 },
+  { time: '2025-10-06', open: 182.11, high: 183.00, low: 181.60, close: 182.45 },
+  { time: '2025-10-07', open: 182.50, high: 184.10, low: 182.20, close: 183.88 },
+  { time: '2025-10-08', open: 183.50, high: 185.00, low: 183.20, close: 184.50 },
+  { time: '2025-10-09', open: 184.00, high: 184.20, low: 182.10, close: 182.70 },
+  { time: '2025-10-10', open: 182.50, high: 183.10, low: 180.80, close: 181.20 },
+  { time: '2025-10-11', open: 181.00, high: 182.00, low: 179.50, close: 180.00 },
 ];
 

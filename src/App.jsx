@@ -8,20 +8,24 @@ import Funds from "./pages/Funds";
 import Positions from "./pages/Positions";
 import Profile from "./pages/Profile";
 import Bids from "./pages/Bids";
-import Cart from "./pages/Cart";
 import WatchlistSidebar from "./components/WatchlistSidebar";
-import { CartProvider } from "./context/CartContext";
 import { OrderPanelProvider } from "./context/OrderPanelContext";
 import OrderPanel from "./components/OrderPanel/OrderPanel";
+import StockChart from "./components/StockChart";
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [activePage, setActivePage] = useState("Dashboard");
+  
+  // --- ADDED ---
+  // State to control the watchlist's fullscreen mode
+  const [isWatchlistFullScreen, setIsWatchlistFullScreen] = useState(false);
+  // --- END ADDED ---
 
   return (
-    <CartProvider>
-      <OrderPanelProvider>
-        {/* Header */}
+    <OrderPanelProvider>
+      {/* Header (conditionally hidden if watchlist is fullscreen) */}
+      {!isWatchlistFullScreen && (
         <header className="fixed top-0 left-0 right-0 z-20 bg-white shadow-sm">
           <TopHeader
             activePage={activePage}
@@ -29,14 +33,22 @@ function App() {
             toggleSidebar={() => setIsSidebarOpen((s) => !s)}
           />
         </header>
+      )}
 
-        {/* Layout Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-[18rem_1fr] lg:grid-cols-[21rem_1fr] min-h-[calc(100vh-3.5rem)] mt-14">
+      {/* Layout Grid */}
+      {/* --- MODIFIED: Grid is hidden if watchlist is fullscreen --- */}
+      {!isWatchlistFullScreen && (
+        <div className="grid grid-cols-1 md:grid-cols-[20rem_1fr] lg:grid-cols-[24rem_1fr] min-h-[calc(100vh-3.5rem)] mt-14">
           {/* Sidebar */}
           <div className="hidden md:block relative">
             <WatchlistSidebar
               isSidebarOpen={isSidebarOpen}
               setIsSidebarOpen={setIsSidebarOpen}
+              // --- ADDED PROPS ---
+              isFullScreen={isWatchlistFullScreen}
+              onToggleFullScreen={() => setIsWatchlistFullScreen(true)}
+              onClose={() => setIsWatchlistFullScreen(false)}
+              // --- END ADDED ---
             />
           </div>
 
@@ -52,16 +64,28 @@ function App() {
                 <Route path="/positions" element={<Positions />} />
                 <Route path="/bids" element={<Bids />} />
                 <Route path="/profile" element={<Profile />} />
-                <Route path="/cart" element={<Cart />} />
+                <Route path="/chart" element={<StockChart />} />
+                <Route path="/chart/:symbol" element={<StockChart />} />
               </Routes>
             </div>
           </main>
         </div>
+      )}
 
-        {/* Mount OrderPanel globally; it will manage its own visibility via context */}
-        <OrderPanel />
-      </OrderPanelProvider>
-    </CartProvider>
+      {/* --- ADDED: Standalone Watchlist for Fullscreen Mode --- */}
+      {isWatchlistFullScreen && (
+        <WatchlistSidebar
+          isSidebarOpen={true} // Always open when fullscreen
+          isFullScreen={isWatchlistFullScreen}
+          onToggleFullScreen={() => setIsWatchlistFullScreen(false)} // Toggle off
+          onClose={() => setIsWatchlistFullScreen(false)} // Close
+        />
+      )}
+      {/* --- END ADDED --- */}
+
+      {/* Mount OrderPanel globally */}
+      <OrderPanel />
+    </OrderPanelProvider>
   );
 }
 

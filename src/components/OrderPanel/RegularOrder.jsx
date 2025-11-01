@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 
 const RegularOrder = ({ orderType, stock }) => {
+  if (!stock) return null;
+
   const [qty, setQty] = useState(1);
   const [price, setPrice] = useState(stock?.price || 22.94);
   const [trigger, setTrigger] = useState("");
@@ -59,7 +61,7 @@ const RegularOrder = ({ orderType, stock }) => {
 
       <button
         className={`w-full py-2 px-4 text-white rounded font-medium ${
-          orderType === "Buy" 
+          orderType === "BUY" 
             ? "bg-blue-600 hover:bg-blue-700" 
             : "bg-orange-500 hover:bg-orange-600"
         }`}

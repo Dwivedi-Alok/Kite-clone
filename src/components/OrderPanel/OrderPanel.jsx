@@ -6,7 +6,7 @@ import { X } from "lucide-react";
 import { useOrderPanel } from "../../context/OrderPanelContext"; 
 
 const OrderPanel = () => {
-  const { isOpen, stock, orderType: initialOrderType, closeOrderPanel } = useOrderPanel();
+  const { isPanelOpen: isOpen, selectedItem: stock, orderType: initialOrderType, closeOrderPanel } = useOrderPanel();
   const [activeTab, setActiveTab] = useState("Quick");
   const [orderType, setOrderType] = useState(initialOrderType);
   const [isVisible, setIsVisible] = useState(false); // for smooth animation
@@ -66,11 +66,11 @@ const OrderPanel = () => {
           <div className="flex justify-between items-center text-sm">
             <div>
               <span className="font-medium">
-                ₹{stock.price ? stock.price.toFixed(2) : "22.94"}
+                ₹{stock.price ? parseFloat(stock.price).toFixed(2) : "22.94"}
               </span>
               <span
                 className={`ml-2 text-xs ${
-                  stock.change >= 0 ? "text-green-600" : "text-red-500"
+                  parseFloat(stock.change) >= 0 ? "text-green-600" : "text-red-500"
                 }`}
               >
                 {stock.change ? stock.change : "-0.05"} (
@@ -91,9 +91,9 @@ const OrderPanel = () => {
         {/* Order Type Buttons */}
         <div className="flex border-b">
           <button
-            onClick={() => setOrderType("Buy")}
+            onClick={() => setOrderType("BUY")}
             className={`flex-1 py-2 px-4 text-sm font-medium transition ${
-              orderType === "Buy"
+              orderType === "BUY"
                 ? "bg-blue-600 text-white"
                 : "text-gray-600 hover:bg-gray-50"
             }`}
@@ -101,9 +101,9 @@ const OrderPanel = () => {
             Buy
           </button>
           <button
-            onClick={() => setOrderType("Sell")}
+            onClick={() => setOrderType("SELL")}
             className={`flex-1 py-2 px-4 text-sm font-medium transition ${
-              orderType === "Sell"
+              orderType === "SELL"
                 ? "bg-orange-500 text-white"
                 : "text-gray-600 hover:bg-gray-50"
             }`}

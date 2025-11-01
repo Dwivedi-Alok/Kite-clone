@@ -1,39 +1,46 @@
-// src/context/OrderPanelContext.jsx
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState } from 'react';
 
+// 1. Create the context
 const OrderPanelContext = createContext();
 
-// ✅ Provider component
+// 2. Create the Provider component
 export const OrderPanelProvider = ({ children }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [stock, setStock] = useState(null);
-  const [orderType, setOrderType] = useState("BUY");
+  const [isPanelOpen, setIsPanelOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [orderType, setOrderType] = useState('BUY'); // 'BUY' or 'SELL'
 
-  const openOrderPanel = (stockData, type = "BUY") => {
-    setStock(stockData);
+  const openOrderPanel = (item, type) => {
+    setSelectedItem(item);
     setOrderType(type);
-    setIsOpen(true);
+    setIsPanelOpen(true);
   };
 
   const closeOrderPanel = () => {
-    setIsOpen(false);
-    setStock(null);
+    setIsPanelOpen(false);
+    setSelectedItem(null);
+  };
+
+  // Provide these values to all children components
+  const value = {
+    isPanelOpen,
+    selectedItem,
+    orderType,
+    openOrderPanel,
+    closeOrderPanel,
   };
 
   return (
-    <OrderPanelContext.Provider
-      value={{ isOpen, stock, orderType, openOrderPanel, closeOrderPanel }}
-    >
+    <OrderPanelContext.Provider value={value}>
       {children}
     </OrderPanelContext.Provider>
   );
 };
 
-// ✅ custom hook
+// 3. Create the custom hook (which you are already using)
 export const useOrderPanel = () => {
   const context = useContext(OrderPanelContext);
   if (!context) {
-    throw new Error("useOrderPanel must be used within an OrderPanelProvider");
+    throw new Error('useOrderPanel must be used within an OrderPanelProvider');
   }
   return context;
 };
